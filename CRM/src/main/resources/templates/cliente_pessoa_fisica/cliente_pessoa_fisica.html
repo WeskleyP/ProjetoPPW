@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns="http://w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Pagina de Cadastro de Cliente Pessoa Fisica</title>
+</head>
+<body>
+	<section layout:fragment="corpo">
+		<div class="app-title">
+			<div>
+				<h1>
+					<i class="fa fa-edit"></i>Cadastro de Cliente Pessoa Fisica
+				</h1>
+			</div>
+			<ul class="app-breadcrumb breadcrumb">
+				<li class="breadcrum-item"><i class="fa fa-search fa-lg"></i></li>
+				<li class="breadcrum-item"><a
+					th:href="@{/cliente_pessoa_fisica/lista_cliente_pessoa_fisica}">Listar
+						Clientes</a></li>
+			</ul>
+		</div>
+		<div class="container-fluid">
+			<div class="tile">
+				<h3 class="tile-title">Registro</h3>
+				<div class="tile-body">
+					<form th:object=${clientePessoaFisica}
+						th:action="${id == null} ? @{/cliente_pessoa_fisica/salvar_cliente_pessoa_fisica} : @{/cliente_pessoa_fisica/editar_cliente_pessoa_fisica}"
+						method="POST" autocomplete="off">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div th:replace="fragments/validacao :: validacao"></div>
+								<div th:replace="fragments/alert"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="dateNasc" class="control-label">Data
+										Nascimento: </label><input class="form-control" data-mask="00/00/0000" placeholder="Ex.: dd/mm/aaaa" type="text"
+										id="dateNasc" name="dateNasc" th:field="*{dateNasc}"
+										th:classappend="${#fields.hasErrors('dateNasc')} ? 'is-invalid' " />
+									<div class="invalid-feedback">
+										<span th:errors="*{dateNasc}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="nomePai" class="control-label">Nome do Pai:
+									</label> <input class="form-control" type="text" th:field="*{nomePai}"
+										id="nomePai" name="nomePai"
+										th:classappend="${#fields.hasErrors('nomePai')} ? 'is-invalid'" />
+									<div class="invalid-feedback">
+										<span th:errors="*{nomePai}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="nomeMae" class="control-label">Nome da Mãe:
+									</label> <input class="form-control" type="text" th:field="*{nomeMae}"
+										id="nomeMae" name="nomeMae"
+										th:classappend="${#fields.hasErrors('nomeMae')} ? 'is-invalid'" />
+									<div class="invalid-feedback">
+										<span th:errors="*{nomeMae}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="sexo" class="control-label">Sexo: </label> <select
+										class="form-control" th:field="*{sexo}" id="sexo" name="sexo">
+										<option value="">Selecione uma opção</option>
+										<option th:each="sexo : ${sexos}" th:value="${sexo}"
+											th:text="${sexo.descricao}"
+											th:classappend="${#fields.hasErrors('sexo')} ? 'is-invalid'"></option>
+									</select>
+									<div class="invalid-feedback">
+										<span th:errors="*{sexo}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="cpf" class="control-label">CPF: </label> <input
+										class="form-control" type="text" data-mask="000.000.000-00" th:field="*{cpf}" id="cpf"
+										name="cpf"
+										th:classappend="${#fields.hasErrors('cpf')} ? 'is-invalid'" />
+									<div class="invalid-feedback">
+										<span th:errors="*{cpf}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="nome" class="control-label">Nome: </label>
+									<div class="input-group">
+										<span class="input-group-prepend"> <span
+											class="input-group-text fa fa-list fa-lg"></span>
+										</span> <input class="form-control" type="text"
+											th:field="*{cliente.nome}" id="nome" name="nome"
+											th:classappend="${#fields.hasErrors('cliente.nome')} ? 'is-invalid'" />
+										<span class="input-group-append">
+											<button class="btn btn-default" type="button"
+												data-toggle="modal" data-target="#pesquisaCliente">
+												<i class="fa fa-search fa-lg"></i>
+											</button>
+											<button class="btn btn-default" type="button"
+												data-toggle="modal" data-target="#cadastrarCliente">
+												<i class="fa fa-plus fa-lg"></i>
+											</button>
+										</span>
+										<div class="invalid-feedback">
+											<span th:errors="*{cliente.nome}"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" th:field="*{id}" />
+						<div class="tile-footer">
+							<button class="btn btn-primary" type="submit">
+								<b>Salvar </b><span class="fa fa-check-circle fa-3x"></span>
+							</button>
+							<a class="btn btn-dark"
+								th:href="@{/cliente_pessoa_fisica/listar_cliente_pessoa_fisica}"><i
+								class="fa fa-trash"></i>Cancelar</a>
+						</div>
+						<th:block
+							th:replace="fragments/PesquisaCliente :: pesquisaCliente">
+						</th:block>
+						<th:block
+							th:replace="fragments/cadastraCliente :: cadastrarCliente">
+						</th:block>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/js/datatable/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/js/datatable/dataTables.select.min.js}"></script>
+		<script th:src="@{/js/datatable/dataTables.bootstrap4.min.js}"></script>
+		<script>
+			$(document).ready(function(){
+	        	   $('#tabela_cliente').hide();
+	        	   
+	        	   var nomePessoa   = $('#nome');
+	        	   var erroNome     = $('#erroNome');
+	        	   var showErroNome = $('#showErroNome');
+	        	   
+	        	   var emailPessoa    = $('#email');
+	        	   var erroEmail      = $('#erroEmail');
+	        	   var showErroEmail = $('#showErroEmail');
+	        	   
+	        	   nomePessoa.blur(function(){
+	        		   if ($.trim(nomePessoa.val()).length==0){
+	        			   nomePessoa.addClass('is-invalid');
+	                       erroNome.addClass('invalid-feedback');
+	                       showErroNome.html('O nome deve ser informado').show();
+	                       nomePessoa.focus();
+	        		   } else {
+	                       nomePessoa.removeClass('is-invalid');
+	                       erroNome.removeClass('invalid-feedback');
+	                       showErroNome.html('').hide();
+	        		   }
+	        	   });
+	        	   
+	        	   emailPessoa.blur(function(){
+	        		   
+	        	   });
+	        	   
+	           });
+	           
+	           
+	           $('#cadastrarCliente').find('#btnSalvarCliente').on('click', function(event){
+	        	   event.preventDefault();
+	        	   var pessoa = {
+	        		   'nome': $('nome').val(),
+	        		   'email': $('email').val(),  	   
+	        	   };
+	        	   $.ajax({
+	        		   url:'/rest/cliente/salvar_cliente',
+	        		   method:'POST',
+	        		   data:JSON.stringify(pessoa),
+	        		   dataType:'JSON',
+	        		   contentType:'application/json; charset=utf-8',
+	        		   success: function(data){
+	        			   $('#cadastrarCliente').modal('hide');
+	        		   },
+	        		   error:function(jqXHR, textStatus, errorThrown){
+	        			   alert('erro no processamento');
+	        		   }
+	        	   }); 
+	        	   
+	           });
+	           
+	           
+	           $('#btnBusca').on('click',function(event){
+	        	   
+	        	   event.preventDefault();
+	        	   $.ajax({
+	        		   url:'/rest/cliente',
+	        		   method:'GET',
+	        		   data:{
+	        			 nome:$('#nomeCliente').val() 
+	        		   },
+	        		   dataType:'JSON',
+	        		   contentType:'application/json; charset=utf-8',
+	        		   success: function(data){
+	        			   pesquisaConcluida(data);
+	        		   },
+	        		   error:function(jqXHR, textStatus, errorThrown){
+	        			   alert('erro no processamento');
+	        		   }
+	        	   }); 
+	        	   
+	        	   
+	        	   $('#pesquisaCliente').keyup(function(event){
+	        		   var tecla = event.which;
+	        		   console.log(tecla); 
+	        	   });
+	        	   
+	        	   
+	        	   function pesquisaConcluida(resultado){
+	        		   $('#tabela_cliente').show();
+	        		   var tabelaCliente= $('#tabelaCliente').DataTable({
+	        				
+	        				select : true,
+	        				destroy: true,
+	        				data : resultado,
+	        				lengthMenu : [ 5, 10, 25 ],
+	        				searching : true,
+	        	     		paging : true,
+	        				aaSorting : [ [ 1, 'desc' ],[ 2, 'asc' ] ], // Optional
+	        				responsive : true,
+	        				bAutoWidth : true,
+	        				orderable : true,
+	        				pagingType : "full_numbers",
+	        				order : [ [ 1, 'asc' ] ],
+	        				columns : [{"data":"id"},{"data":"nome"},{"data":"email"},],
+	        				
+	        				"language": {
+	        					"sEmptyTable": "Nenhum registro encontrado",
+	        				    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+	        				    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+	        				    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+	        				    "sInfoPostFix": "",
+	        				    "sInfoThousands": ".",
+	        				    "sLengthMenu": "_MENU_ resultados por página",
+	        				    "sLoadingRecords": "Carregando...",
+	        				    "sProcessing": "Processando...",
+	        				    "sZeroRecords": "Nenhum registro encontrado",
+	        				    "sSearch": "Pesquisar",
+	        				    "oPaginate": {
+	        				        "sNext": "Próximo",
+	        				        "sPrevious": "Anterior",
+	        				        "sFirst": "Primeiro",
+	        				        "sLast": "Último"
+	        				    },
+	        				    "oAria": {
+	        				        "sSortAscending": ": Ordenar colunas de forma ascendente",
+	        				        "sSortDescending": ": Ordenar colunas de forma descendente"
+	        				    }
+	        		        }
+	        				
+	        				
+	        			});
+	        			$('#tabelaCliente').on('click', 'tr', function() {
+	        			   
+	        				var pessoa = tabelaPessoa.row(this).data();
+	        			    
+	           			    $('#nome').val(pessoa.nome);
+	           			    
+	        				tabelaPessoa.draw();
+	        				tabelaPessoa.clear();
+	        				
+	        				document.getElementById("formBuscaCliente").reset();
+	        				
+	        				$('#nomeCliente').val('');
+	        				
+	        				$('#pesquisaCliente').modal('hide');
+	        				$('#tabela_cliente').hide();
+	        				
+	        			});
+	        	   }
+	           });
+		</script>
+	</th:block>
+</body>
+</html>

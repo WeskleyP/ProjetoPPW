@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<nav id="sidebar" th:fragment="nav-sidebar">
+		<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+		<aside class="app-sidebar">
+			<div class="app-sidebar__user">
+				<img class="app-sidebar__user-avatar" width="50px" height="50px"
+					src="https://cdn.morguefile.com/imageData/public/files/d/davidpwhelan/11/p/44efee897f6695ae2c97c53121f7cd41.jpg"
+					alt="User Image">
+				<div>
+					<!-- th:text="${usuario_logado.getUsuario().getUsername()}" -->
+					<p class="app-sidebar__user-name">Weskley Pedro</p>
+					<p class="app-sidebar__user-designation">Full Stack Developer</p>
+				</div>
+			</div>
+			<ul class="app-menu">
+				<li><a class="app-menu__item active"
+					th:href="@{/index}"><i
+						class="app-menu__icon fa fa-dashboard"></i><span
+						class="app-menu__label">Página Principal</span></a></li>
+				<li class="treeview"><a class="app-menu__item" href="#"
+					data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span
+						class="app-menu__label">Clientes</span><i
+						class="treeview-indicator fa fa-angle-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="treeview-item"
+							th:href="@{/cliente/novo_cliente}"><i
+								class="icon fa fa-circle-o"></i>Novos Cliente</a></li>
+								<li><a class="treeview-item"
+							th:href="@{/cliente/list_cliente}"><i
+								class="icon fa fa-circle-o"></i>Lista de Cliente Gerais</a></li>
+						<li><a class="treeview-item" href="#" rel="noopener"><i
+								class="icon fa fa-circle-o"></i>Telefones por Cliente</a></li>
+						<li><a class="treeview-item" href="#"><i
+								class="icon fa fa-circle-o"></i> Cards</a></li>
+						<li><a class="treeview-item" href="#"><i
+								class="icon fa fa-circle-o"></i> Widgets</a></li>
+					</ul></li>
+				<li class="treeview"><a class="app-menu__item" href="#"
+					data-toggle="treeview"><i class="app-menu__icon fa fa-line-chart"></i><span
+						class="app-menu__label">Cliente Pessoa Fisica</span><i
+						class="treeview-indicator fa fa-angle-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="treeview-item"
+							th:href="@{/cliente_pessoa_fisica/novo_cliente_pessoa_fisica}"><i
+								class="icon fa fa-circle-o"></i>Novo Cliente Pessoa Fisica</a></li>
+						<li><a class="treeview-item"
+							th:href="@{/cliente_pessoa_fisica/lista_cliente_pessoa_fisica}"><i
+								class="icon fa fa-circle-o"></i>Lista de Clientes Pessoa Fisica</a></li>
+					</ul></li>
+				<li class="treeview"><a class="app-menu__item" href="#"
+					data-toggle="treeview"><i class="app-menu__icon fa fa-flag"></i><span
+						class="app-menu__label">Cliente Pessoa Juridica</span><i
+						class="treeview-indicator fa fa-angle-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="treeview-item"
+							th:href="@{/cliente_pessoa_fisica/novo_cliente_pessoa_fisica}"><i
+								class="icon fa fa-circle-o"></i>Novo Cliente Pessoa Juridica</a></li>
+						<li><a class="treeview-item"
+							th:href="@{/cliente_pessoa_fisica/lista_cliente_pessoa_fisica}"><i
+								class="icon fa fa-circle-o"></i>Lista de Clientes Pessoa
+								Juridica</a></li>
+					</ul></li>
+				<li class="treeview"><a class="app-menu__item" href="#"
+					data-toggle="treeview"><i class="app-menu__icon fa fa-list-alt"></i><span
+						class="app-menu__label">Categorias</span><i
+						class="treeview-indicator fa fa-angle-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="treeview-item"
+							th:href="@{/categoria/nova_categoria}"><i
+								class="icon fa fa-circle-o"></i>Nova Categoria</a></li>
+						<li><a class="treeview-item"
+							th:href="@{/categoria/list_categoria}"><i
+								class="icon fa fa-circle-o"></i>Lista de Categorias</a></li>
+					</ul></li>
+				<li class="treeview"><a class="app-menu__item" href="#"
+					data-toggle="treeview"><i
+						class="app-menu__icon fa fa-product-hunt"></i><span
+						class="app-menu__label">Produtos</span><i
+						class="treeview-indicator fa fa-angle-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="treeview-item"
+							th:href="@{/produto/novo_produto}"><i
+								class="icon fa fa-circle-o"></i>Novo Produto</a></li>
+						<li><a class="treeview-item"
+							th:href="@{/produto/list_produto}"><i
+								class="icon fa fa-circle-o"></i>Lista de Produtos</a></li>
+					</ul></li>
+				<li class="treeview" sec:authorize="hasRole('ROLE_ADMINISTRADOR')"><a
+					class="app-menu__item" href="#" data-toggle="treeview"><i
+						class="app-menu__icon fa fa-edit"></i><span
+						class="app-menu__label">Segurança</span><i
+						class="treeview-indicator fa fa-angle-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="treeview-item" href="#"><i
+								class="icon fa fa-circle-o"></i>Grupo de Usuário</a></li>
+						<li><a class="treeview-item" href="#"><i
+								class="icon fa fa-circle-o"></i>Permissões de Usuário</a></li>
+						<li><a class="treeview-item" href="#"><i
+								class="icon fa fa-circle-o"></i>Escopo de Usuário</a></li>
+						<li><a class="treeview-item" href="#"><i
+								class="icon fa fa-circle-o"></i>Usuários</a></li>
+						<li><a class="treeview-item" href="#"><i
+								class="icon fa fa-circle-o"></i> Direitos de Acesso</a></li>
+					</ul></li>
+				<li class="treeview"
+					sec:authorize="hasRole('ROLE_ADMINISTRADOR') and hasRole('ROLE_USUARIO')"><a
+					class="app-menu__item" href="#" data-toggle="treeview"><i
+						class="app-menu__icon fa fa-key"></i><span class="app-menu__label">Alterar
+							Senha</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="treeview-item" href="#"><i
+								class="icon fa fa-circle-o"></i>Trocar Senha</a></li>
+					</ul></li>
+
+			</ul>
+		</aside>
+	</nav>
+</body>
+</html>
