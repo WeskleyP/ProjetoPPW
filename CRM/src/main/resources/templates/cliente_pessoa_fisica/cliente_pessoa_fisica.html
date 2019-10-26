@@ -280,12 +280,12 @@
 	        			});
 	        			$('#tabelaCliente').on('click', 'tr', function() {
 	        			   
-	        				var pessoa = tabelaPessoa.row(this).data();
+	        				var pessoa = tabelaCliente.row(this).data();
 	        			    
 	           			    $('#nome').val(pessoa.nome);
 	           			    
-	        				tabelaPessoa.draw();
-	        				tabelaPessoa.clear();
+	        				tabelaCLiente.draw();
+	        				tabelaCliente.clear();
 	        				
 	        				document.getElementById("formBuscaCliente").reset();
 	        				
