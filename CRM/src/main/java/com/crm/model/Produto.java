@@ -49,7 +49,6 @@ public class Produto {
 		this.id = id;
 	}
 	@Size(min = 3, max = 100, message = "No minimo 3 caracteres e no maximo 100 caracteres!")
-	@NotBlank(message = "O nome do produto deve ser informado!")
 	@NotNull(message = "O nome do produto deve ser informado!")
 	@Column(name = "PRODUTO_NOME", length = 100,nullable = false)
 	public String getNome() {
@@ -67,7 +66,6 @@ public class Produto {
 		this.descricao = descricao;
 	}
 	@NotNull(message = "O valor do produto deve ser informado!")
-	@NotBlank(message = "O valor do produto deve ser informado!")
 	@Column(name = "PRODUTO_VALOR", nullable = false)
 	public double getValor() {
 		return valor;
@@ -76,7 +74,6 @@ public class Produto {
 		this.valor = valor;
 	}
 	@NotNull(message = "A quantidade do produto deve ser informado!")
-	@NotBlank(message = "A quantidade do produto deve ser informado!")
 	@Column(name = "PRODUTO_QUANTIDADE", nullable = false)
 	public int getQuantidade() {
 		return quantidade;

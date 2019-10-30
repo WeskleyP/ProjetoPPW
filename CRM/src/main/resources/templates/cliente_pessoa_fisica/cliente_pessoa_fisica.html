@@ -109,7 +109,7 @@
 									<div class="input-group">
 										<span class="input-group-prepend"> <span
 											class="input-group-text fa fa-list fa-lg"></span>
-										</span> <input class="form-control" type="text"
+										</span> <input class="form-control" type="text" readonly="readonly"
 											th:field="*{cliente.nome}" id="nome" name="nome"
 											th:classappend="${#fields.hasErrors('cliente.nome')} ? 'is-invalid'" />
 										<span class="input-group-append">
@@ -156,30 +156,30 @@
 		<script>
 			$(document).ready(function(){
 	        	   $('#tabela_cliente').hide();
+	        	   $('#erro').hide();
 	        	   
-	        	   var nomePessoa   = $('#nome');
+	        	   
+	        	   var nomeCliente   = $('#nome');
 	        	   var erroNome     = $('#erroNome');
 	        	   var showErroNome = $('#showErroNome');
 	        	   
-	        	   var emailPessoa    = $('#email');
+	        	   var emailCliente    = $('#email');
 	        	   var erroEmail      = $('#erroEmail');
 	        	   var showErroEmail = $('#showErroEmail');
 	        	   
-	        	   nomePessoa.blur(function(){
-	        		   if ($.trim(nomePessoa.val()).length==0){
-	        			   nomePessoa.addClass('is-invalid');
+	        	   nomeCliente.blur(function(){
+	        		   if ($.trim(nomeCliente.val()).length==0){
+	        			   nomeCliente.addClass('is-invalid');
 	                       erroNome.addClass('invalid-feedback');
 	                       showErroNome.html('O nome deve ser informado').show();
-	                       nomePessoa.focus();
+	                       nomeCliente.focus();
 	        		   } else {
-	                       nomePessoa.removeClass('is-invalid');
+	                       nomeCliente.removeClass('is-invalid');
 	                       erroNome.removeClass('invalid-feedback');
 	                       showErroNome.html('').hide();
 	        		   }
-	        	   });
-	        	   
-	        	   emailPessoa.blur(function(){
-	        		   
+	        	   });	        	   
+	        	   emailClientePessoa.blur(function(){	   
 	        	   });
 	        	   
 	           });
@@ -188,8 +188,8 @@
 	           $('#cadastrarCliente').find('#btnSalvarCliente').on('click', function(event){
 	        	   event.preventDefault();
 	        	   var pessoa = {
-	        		   'nome': $('nome').val(),
-	        		   'email': $('email').val(),  	   
+	        		   'nome': $('#nomeClientePessoa').val(),
+	        		   'email': $('#emailClientePessoa').val(),  	   
 	        	   };
 	        	   $.ajax({
 	        		   url:'/rest/cliente/salvar_cliente',
@@ -198,7 +198,23 @@
 	        		   dataType:'JSON',
 	        		   contentType:'application/json; charset=utf-8',
 	        		   success: function(data){
-	        			   $('#cadastrarCliente').modal('hide');
+	        			   if(data.validate){
+	        				   $('#cadastrarCliente').modal('hide');
+	        			   }else{
+	        				   $('#nomeClientePessoa').addClass('is-invalid');
+	        				   $('#showErroNome').html('O nome deve ser informado').show();
+	        				   $('#emailClientePessoa').addClass('is-invalid');
+	        				   $('#showErroEmail').html('O email deve ser informado').show();
+	        				   $('formCadastroCliente').find('.form-group').addClass('is-invalid');
+	        				   $('#erro').removeClass('hidden');
+	        				   var erroInfo = "";
+	        				   $.each(data.erroMensagem, function(key, value){
+	        					   console.log('key', key);
+	        					   erroInfo += "<br>" + '<i class = "fa fa-info-circle"></i>' + '&nbsp' + '&nbsp' + value;
+	        				   });
+	        				   $('#erro').html('Verifique' + erroInfo);
+	        				   $('#erro').show('slow');
+	        			   }
 	        		   },
 	        		   error:function(jqXHR, textStatus, errorThrown){
 	        			   alert('erro no processamento');
