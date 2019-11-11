@@ -1,15 +1,22 @@
 package com.crm.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.CustomEditorConfigurer;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +39,7 @@ import com.crm.service.exceptions.EmailClienteExistente;
 public class ClientePessoaFisicaController {
 	@Autowired
 	ClientePessoaFisicaService clientePessoaFisicaService;
-
+	
 	@RequestMapping(value = "/lista_cliente_pessoa_fisica", method = RequestMethod.GET)
 	public ModelAndView listaClientePessoaFisica(ClientePessoaFisicaFilter clientePessoaFisicaFilter,
 												 HttpServletRequest httpServletRequest,
@@ -70,11 +77,7 @@ public class ClientePessoaFisicaController {
 		if (result.hasErrors()) {
 			return newForm(clientePessoaFisica);
 		}
-		try {
-			clientePessoaFisicaService.saveClientePessoaFisica(clientePessoaFisica);
-		} catch (Exception e) {
-			throw new Exception(e);
-		}	
+		clientePessoaFisicaService.saveClientePessoaFisica(clientePessoaFisica);
 		attr.addFlashAttribute("success", "Registro Cadastrado com sucesso.");
 		return new ModelAndView("redirect:/cliente_pessoa_fisica/novo_cliente_pessoa_fisica");
 	}
@@ -106,7 +109,7 @@ public class ClientePessoaFisicaController {
 	}
 	@RequestMapping(value = {"/editar_cliente_pessoa_fisica", 
 			"/salvar_cliente_pessoa_fisica",
-			"/excluir_cliente_pessoa_fisica"})
+			"/excluir_cliente_pessoa_fisica"}, params = "action=cancelar", method = RequestMethod.POST)
 	public String cancelar() {
 		return "redirect:/cliente/list_cliente";
 	}

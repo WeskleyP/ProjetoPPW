@@ -63,7 +63,7 @@
 							<div class="col-xs-12 col-sm-12 col-md-12">
 								<div class="form-group">
 									<label for="valor" class="control-label">Valor Básico: </label> <input
-										class="form-control" type="text" th:field="*{valor}"
+										class="form-control" type="text" step="0.01" placeholder="Ex: 100.00" th:field="*{valor}"
 										id="valor" name="valor"
 										th:classappend="${#fields.hasErrors('valor')} ? 'is-invalid'"/>
 									<div class="invalid-feedback">
@@ -76,11 +76,28 @@
 							<div class="col-xs-12 col-sm-12 col-md-12">
 								<div class="form-group">
 									<label for="quantidade" class="control-label">Quantidade Inicial: </label> <input
-										class="form-control" type="number" th:field="*{quantidade}"
+										class="form-control" th:type="text" th:maxlength="4" th:field="*{quantidade}"
 										id="quantidade" name="quantidade"
 										th:classappend="${#fields.hasErrors('quantidade')} ? 'is-invalid'" />
 									<div class="invalid-feedback">
 										<span th:errors="*{quantidade}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="categoria" class="control-label">Categoria: </label> <select
+										class="form-control" th:field="*{categoria}" id="categoria" name="categoria">
+										<option value="">Selecione uma opção</option>
+										<option th:each="cat : ${categorias}" th:value="${cat.id}"
+											th:text="${cat.nome}"
+											th:classappend="${#fields.hasErrors('categoria')} ? 'is-invalid'">
+											</option>
+									</select>
+									<div class="invalid-feedback">
+										<span th:errors="*{categoria}"></span>
 									</div>
 								</div>
 							</div>

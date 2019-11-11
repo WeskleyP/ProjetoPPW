@@ -109,9 +109,10 @@
 									<div class="input-group">
 										<span class="input-group-prepend"> <span
 											class="input-group-text fa fa-list fa-lg"></span>
-										</span> <input class="form-control" type="text" readonly="readonly"
+										</span> <input class="form-control" type="text" 
 											th:field="*{cliente.nome}" id="nome" name="nome"
 											th:classappend="${#fields.hasErrors('cliente.nome')} ? 'is-invalid'" />
+											<input type="hidden" id="codigoCliente" th:field="*{cliente}"/>
 										<span class="input-group-append">
 											<button class="btn btn-default" type="button"
 												data-toggle="modal" data-target="#pesquisaCliente">
@@ -134,9 +135,9 @@
 							<button class="btn btn-primary" type="submit">
 								<b>Salvar </b><span class="fa fa-check-circle fa-3x"></span>
 							</button>
-							<a class="btn btn-dark"
-								th:href="@{/cliente_pessoa_fisica/listar_cliente_pessoa_fisica}"><i
-								class="fa fa-trash"></i>Cancelar</a>
+							<button type="submit"  class="btn btn-dark" value="cancelar" name="action">
+								<b>Cancelar </b><span class="fa fa fa-trash fa-3x"></span>
+							</button>
 						</div>
 						<th:block
 							th:replace="fragments/PesquisaCliente :: pesquisaCliente">
@@ -157,13 +158,14 @@
 			$(document).ready(function(){
 	        	   $('#tabela_cliente').hide();
 	        	   $('#erro').hide();
-	        	   
+	        	   $('#sucesso').hide();
+	        	   $('#erroPesquisa').hide();
 	        	   
 	        	   var nomeCliente   = $('#nome');
 	        	   var erroNome     = $('#erroNome');
 	        	   var showErroNome = $('#showErroNome');
 	        	   
-	        	   var emailCliente    = $('#email');
+	        	   var emailCliente    = $('#emailClientePessoa');
 	        	   var erroEmail      = $('#erroEmail');
 	        	   var showErroEmail = $('#showErroEmail');
 	        	   
@@ -184,9 +186,14 @@
 	        	   
 	           });
 	           
+	           $('#cadastrarCliente').find('#btnCancelarCliente').on('click',function(event){
+	        	   event.preventDefault();
+	        	   onResetForm(this);
+	           });
 	           
 	           $('#cadastrarCliente').find('#btnSalvarCliente').on('click', function(event){
 	        	   event.preventDefault();
+
 	        	   var pessoa = {
 	        		   'nome': $('#nomeClientePessoa').val(),
 	        		   'email': $('#emailClientePessoa').val(),  	   
@@ -199,30 +206,57 @@
 	        		   contentType:'application/json; charset=utf-8',
 	        		   success: function(data){
 	        			   if(data.validate){
-	        				   $('#cadastrarCliente').modal('hide');
+	        				   $('#sucesso').removeClass('hidden');
+	        				   $('#sucesso').show(data.mensagem);
+	        				   $('#erro').addClass('hidden');
+	        				   $('#codigoCliente').val(data.idClasse);
+	        				   $('#nome').val($('#nomeClientePessoa').val());
+	        				   setTimeout(onResetForm(this), 2000);
 	        			   }else{
-	        				   $('#nomeClientePessoa').addClass('is-invalid');
-	        				   $('#showErroNome').html('O nome deve ser informado').show();
-	        				   $('#emailClientePessoa').addClass('is-invalid');
-	        				   $('#showErroEmail').html('O email deve ser informado').show();
-	        				   $('formCadastroCliente').find('.form-group').addClass('is-invalid');
-	        				   $('#erro').removeClass('hidden');
-	        				   var erroInfo = "";
-	        				   $.each(data.erroMensagem, function(key, value){
-	        					   console.log('key', key);
-	        					   erroInfo += "<br>" + '<i class = "fa fa-info-circle"></i>' + '&nbsp' + '&nbsp' + value;
-	        				   });
-	        				   $('#erro').html('Verifique' + erroInfo);
-	        				   $('#erro').show('slow');
+	        				 $('#erro').removeClass('hidden');
+	        				 var erroInfo = "";
+	        				 $.each(data.erroMensagem, function(key, value){
+	        					 erroInfo += "<br>" + '<i class="fa fa-info-circle"></i>' + '&nbsp;' +value;
+	        					 erroCampo(key,value);
+	        				 });
+	        				 $('#erro').html('Verifique' + erroInfo);
+	        				 $('#erro').show('slow');
 	        			   }
 	        		   },
 	        		   error:function(jqXHR, textStatus, errorThrown){
-	        			   alert('erro no processamento');
+	        			   alert('Erro no processamento');
 	        		   }
 	        	   }); 
 	        	   
 	           });
 	           
+	           function onResetForm(){
+	        	   $('#sucesso').addClass('hidden');
+	        	   $('#sucesso').html('').hide();
+	        	   $('#erro').html('').hide();
+	        	   $('#formCadastroCliente').trigger('reset');
+	        	   $('#nomeClientePessoa').removeClass('is-invalid');
+	        	   $('#erroNome').removeClass('invalid-feedback');
+	        	   $('#showErroNome').html('').hide();
+	        	   $('#emailClientePessoa').removeClass('is-invalid');
+	        	   $('#erroEmail').removeClass('invalid-feedback');
+	        	   $('#showErroEmail').html('').hide();
+	        	   $('#cadastrarCliente').modal('hide');
+	        	   $('#nomeClientePessoa').val('');
+	        	   $('#emailClientePessoa').val('');
+	           };
+	           function erroCampo(key, value){
+	        	   if(key == "nome"){
+	        		   $('#nomeClientePessoa').addClass('is-invalid');
+	        		   $('#erroNome').addClass('invalid-feedback');
+					   $('#showErroNome').html(value).show();
+	        	   }
+	        	   if(key == "email"){
+	        		   $('#emailClientePessoa').addClass('is-invalid');
+	        		   $('#erroEmail').addClass('invalid-feedback');
+					   $('#showErroEmail').html('O email deve ser informado').show();
+	        	   }
+	           };
 	           
 	           $('#btnBusca').on('click',function(event){
 	        	   
@@ -237,9 +271,11 @@
 	        		   contentType:'application/json; charset=utf-8',
 	        		   success: function(data){
 	        			   pesquisaConcluida(data);
+	        			   $('#erroPesquisa').html('').hide();
 	        		   },
 	        		   error:function(jqXHR, textStatus, errorThrown){
-	        			   alert('erro no processamento');
+	        			   $('#erroPesquisa').removeClass('hidden');
+	        			   $('#erroPesquisa').html('Informe pelo menos 3 caracteres').show('slow');
 	        		   }
 	        	   }); 
 	        	   
@@ -294,22 +330,21 @@
 	        				
 	        				
 	        			});
-	        			$('#tabelaCliente').on('click', 'tr', function() {
-	        			   
-	        				var pessoa = tabelaCliente.row(this).data();
-	        			    
-	           			    $('#nome').val(pessoa.nome);
-	           			    
-	        				tabelaCLiente.draw();
-	        				tabelaCliente.clear();
-	        				
-	        				document.getElementById("formBuscaCliente").reset();
-	        				
-	        				$('#nomeCliente').val('');
-	        				
+	        			$('#tabelaCliente tbody').on('click', 'tr', function(event) {
+	        			   event.preventDefault();
+	        			    let indice = tabelaCliente.row(this).index();
+	           			    let cliente = tabelaCliente.row(indice).data();  
+
+	        				$('#nome').val(cliente.nome); 
+	        				$('#codigoCliente').val(cliente.id);
+	        				$('#nomeCliente').val('');		
 	        				$('#pesquisaCliente').modal('hide');
 	        				$('#tabela_cliente').hide();
 	        				
+	        				if($.fn.DataTable.isDataTable('#tabelaCliente')){
+	        					$('#tabelaCliente').DataTable().destroy();
+	        					$('#tabelaCliente').DataTable().clear();
+	        				}
 	        			});
 	        	   }
 	           });

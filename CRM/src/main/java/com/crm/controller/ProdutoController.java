@@ -1,5 +1,6 @@
 package com.crm.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import com.crm.controller.page.PageWrapper;
 import com.crm.model.Categoria;
 import com.crm.model.Produto;
 import com.crm.model.enumarate.Sexo;
+import com.crm.repository.CategoriaRepository;
 import com.crm.repository.filter.CategoriaFilter;
 import com.crm.repository.filter.ProdutoFilter;
 import com.crm.service.ProdutoService;
@@ -33,7 +35,8 @@ import com.crm.service.exceptions.EmailClienteExistente;
 public class ProdutoController {
 	@Autowired
 	private ProdutoService produtoService;
-
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 	@RequestMapping(value = "/list_produto", method = RequestMethod.GET)
 	public ModelAndView listProduto(ProdutoFilter produtoFilter, HttpServletRequest httpServletRequest,
 			@RequestParam(value = "size", required = false) Optional<Integer> size,
@@ -123,5 +126,9 @@ public class ProdutoController {
 	@RequestMapping(value= {"/salvar_produto","/editar_produto","/excluir_produto"}, method=RequestMethod.POST, params="action=cancelar")
 	public String cancelar() {
 		return "redirect:/produto/list_produto";
+	}
+	@ModelAttribute("categorias")
+	public List<Categoria> getCat() {
+		return categoriaRepository.findAll();
 	}
 }

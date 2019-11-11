@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -88,6 +90,7 @@ public class ClientePessoaFisica {
 		this.nomeMae = nomeMae;
 	}
 	@NotNull(message = "O sexo deve ser informado!")
+	@Enumerated(EnumType.STRING)
 	@Column(name = "CLIENTE_PESSOA_FISICA_SEXO")
 	public Sexo getSexo() {
 		return sexo;
@@ -95,7 +98,6 @@ public class ClientePessoaFisica {
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
-	@Size(min = 3, max = 15, message = "O CPF deve ter 11 caracteres!")
 	@NotBlank(message = "O CPF deve ser informado!")
 	@NotNull(message = "O CPF deve ser informado!")
 	@Column(name = "CLIENTE_PESSOA_FISICA_CPF")
@@ -106,7 +108,7 @@ public class ClientePessoaFisica {
 		this.cpf = cpf;
 	}
 	@MapsId
-	@OneToOne(targetEntity = Cliente.class, cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(targetEntity = Cliente.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "CLIENTE_ID", referencedColumnName = "CLIENTE_ID")
 	public Cliente getCliente() {
 		return cliente;

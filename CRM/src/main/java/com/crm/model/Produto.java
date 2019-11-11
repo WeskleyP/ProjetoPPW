@@ -1,5 +1,7 @@
 package com.crm.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,14 +27,14 @@ public class Produto {
 	private Long id;
 	private String nome;
 	private String descricao;
-	private double valor;
+	private BigDecimal valor;
 	private int quantidade;
 	
 	private Categoria categoria;
 	public Produto() {
 
 	}
-	public Produto(Long id, String nome, String descricao, double valor, int quantidade) {
+	public Produto(Long id, String nome, String descricao, BigDecimal valor, int quantidade) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
@@ -67,10 +69,10 @@ public class Produto {
 	}
 	@NotNull(message = "O valor do produto deve ser informado!")
 	@Column(name = "PRODUTO_VALOR", nullable = false)
-	public double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
-	public void setValor(double valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 	@NotNull(message = "A quantidade do produto deve ser informado!")

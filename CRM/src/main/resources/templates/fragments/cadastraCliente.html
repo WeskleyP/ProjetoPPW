@@ -18,16 +18,19 @@
 						<div class="tite-body">
 							<form method="POST" autocomplete="off" id="formCadastroCliente">
 								<div class="row">
-								<div class="col-xs-12 col-sm-12 col-md-12">
-									<div id="erro" class="alert alert-danger hidden">
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div id="sucesso" class="alert alert-info hidden"></div>
 									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div id="erro" class="alert alert-danger hidden"></div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-12 col-sm-12 col-md-12">
 										<div class="form-group">
 											<label for="nome" class="control-label">Nome: </label><input
-												class="form-control" type="text" id="nomeClientePessoa" name="nomeClientePessoa" />
+												class="form-control" type="text" id="nomeClientePessoa"
+												name="nomeClientePessoa" />
 											<div id="erroNome">
 												<span id="showErroNome"></span>
 											</div>
@@ -38,7 +41,8 @@
 									<div class="col-xs-12 col-sm-12 col-md-12">
 										<div class="form-group">
 											<label for="email" class="control-label">Email: </label> <input
-												class="form-control" type="text" id="emailClientePessoa" name="emailClientePessoa" />
+												class="form-control" type="text" id="emailClientePessoa"
+												name="emailClientePessoa" />
 											<div id="erroEmail">
 												<span id="showErroEmail"></span>
 											</div>
@@ -46,7 +50,8 @@
 									</div>
 								</div>
 								<div class="tile-footer">
-									<button id="btnSalvarCliente" class="btn btn-primary" type="submit">
+									<button id="btnSalvarCliente" class="btn btn-primary"
+										type="submit">
 										<b>Salvar </b><span class="fa fa-check-circle fa-3x"></span>
 									</button>
 									<button id="btnCancelarCliente" class="btn btn-dark"

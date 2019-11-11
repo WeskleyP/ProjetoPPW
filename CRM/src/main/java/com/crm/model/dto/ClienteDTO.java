@@ -21,6 +21,9 @@ public class ClienteDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+	@Override
+	public String toString() {
+		return "ClienteDTO [nome=" + nome + ", email=" + email + "]";
+	}
 	
 }

@@ -1,22 +1,23 @@
 package com.crm.rest.response;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.crm.model.dto.ClienteDTO;
 
 public class ErroCadastroCliente {
 	
-	private ClienteDTO clienteDTO;
+	//private ClienteDTO clienteDTO;
 	private boolean validate;
-	private Map<String, String> erroMensagem;
+	private Map<String, String> erroMensagem = new HashMap<String, String>();
 	private String mensagem;
-	
-	public ClienteDTO getClienteDTO() {
-		return clienteDTO;
-	}
-	public void setClienteDTO(ClienteDTO clienteDTO) {
-		this.clienteDTO = clienteDTO;
-	}
+	private Long idClasse;
+//	public ClienteDTO getClienteDTO() {
+//		return clienteDTO;
+//	}
+//	public void setClienteDTO(ClienteDTO clienteDTO) {
+//		this.clienteDTO = clienteDTO;
+//	}
 	public boolean isValidate() {
 		return validate;
 	}
@@ -34,6 +35,12 @@ public class ErroCadastroCliente {
 	}
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
+	}
+	public Long getIdClasse() {
+		return idClasse;
+	}
+	public void setIdClasse(Long idClasse) {
+		this.idClasse = idClasse;
 	}
 	
 }
