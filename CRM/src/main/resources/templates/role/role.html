@@ -4,29 +4,29 @@
 	layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8">
-<title>Pagina de Cadastro de Cliente Gerais</title>
+<title>Pagina de Cadastro de Funções</title>
 </head>
 <body>
 	<section layout:fragment="corpo">
 		<div class="app-title">
 			<div>
 				<h1>
-					<i class="fa fa-edit"></i>Cadastro de Cliente
+					<i class="fa fa-edit"></i>Cadastro de Funções
 				</h1>
 			</div>
 			<ul class="app-breadcrumb breadcrumb">
 				<li class="breadcrum-item"><i class="fa fa-search fa-lg"></i></li>
 				<li class="breadcrum-item"><a
-					th:href="@{/cliente/list_cliente}">Listar Clientes</a></li>
+					th:href="@{/role/list_role}">Listar Funções</a></li>
 			</ul>
 		</div>
 		<div class="container-fluid">
 			<div class="tile">
 				<h3 class="tile-title">Registro</h3>
 				<div class="tite-body">
-					<form th:object=${cliente}
-						th:action="${id == null} ? @{/cliente/salvar_cliente} : @{/cliente/editar_cliente}"
-						method="POST" autocomplete="off" id="form1">
+					<form th:object=${role}
+						th:action="${idRole == null} ? @{/role/salvar_role} : @{/role/editar_role}"
+						method="POST" autocomplete="off">
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12">
 								<div th:replace="fragments/validacao :: validacao"></div>
@@ -36,30 +36,17 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12">
 								<div class="form-group">
-									<label for="nome" class="control-label">Nome: </label><input
-										class="form-control" type="text" id="nome" name="nome"
-										th:field="*{nome}"
-										th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' " />
+									<label for="nomeRole" class="control-label">Nome da Função: </label><input
+										class="form-control" type="text" id="nomeRole" name="nomeRole"
+										th:field="*{nomeRole}"
+										th:classappend="${#fields.hasErrors('nomeRole')} ? 'is-invalid' " />
 									<div class="invalid-feedback">
-										<span th:errors="*{nome}"></span>
+										<span th:errors="*{nomeRole}"></span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12">
-								<div class="form-group">
-									<label for="email" class="control-label">Email: </label> <input
-										class="form-control" type="text" th:field="*{email}"
-										id="email" name="email"
-										th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'" />
-									<div class="invalid-feedback">
-										<span th:errors="*{email}"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<input type="hidden" th:field="*{id}" />
+						<input type="hidden" th:field="*{idRole}" />
 						<div class="tile-footer">
 							<button class="btn btn-primary" type="submit">
 								<b>Salvar </b><span class="fa fa-check-circle fa-3x"></span>

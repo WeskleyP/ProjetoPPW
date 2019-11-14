@@ -21,7 +21,7 @@
 			</div>
 			<ul class="app-menu">
 				<li><a class="app-menu__item active"
-					th:href="@{/index}"><i
+					th:href="@{/home}"><i
 						class="app-menu__icon fa fa-dashboard"></i><span
 						class="app-menu__label">Página Principal</span></a></li>
 				<li class="treeview"><a class="app-menu__item" href="#"
@@ -91,6 +91,31 @@
 						<li><a class="treeview-item"
 							th:href="@{/produto/list_produto}"><i
 								class="icon fa fa-circle-o"></i>Lista de Produtos</a></li>
+					</ul></li>
+					<li class="treeview"><a class="app-menu__item" href="#"
+					data-toggle="treeview"><i
+						class="app-menu__icon fa fa-product-hunt"></i><span
+						class="app-menu__label">Usuarios</span><i
+						class="treeview-indicator fa fa-angle-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="treeview-item"
+							th:href="@{/usuario/novo_usuario}"><i
+								class="icon fa fa-circle-o"></i>Novo Usuario</a></li>
+						<li><a class="treeview-item"
+							th:href="@{/usuario/list_usuario}"><i
+								class="icon fa fa-circle-o"></i>Lista de Usuarios</a></li>
+					</ul></li>
+					<li class="treeview"><a class="app-menu__item" href="#"
+					data-toggle="treeview"><i class="app-menu__icon fa fa-line-chart"></i><span
+						class="app-menu__label">Funções</span><i
+						class="treeview-indicator fa fa-angle-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="treeview-item"
+							th:href="@{/role/novo_role}"><i
+								class="icon fa fa-circle-o"></i>Nova Função</a></li>
+						<li><a class="treeview-item"
+							th:href="@{/role/list_role}"><i
+								class="icon fa fa-circle-o"></i>Lista de Funções</a></li>
 					</ul></li>
 				<li class="treeview" sec:authorize="hasRole('ROLE_ADMINISTRADOR')"><a
 					class="app-menu__item" href="#" data-toggle="treeview"><i

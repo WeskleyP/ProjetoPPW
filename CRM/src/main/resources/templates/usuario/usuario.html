@@ -4,29 +4,29 @@
 	layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8">
-<title>Pagina de Cadastro de Cliente Gerais</title>
+<title>Pagina de Cadastro de Usuarios</title>
 </head>
 <body>
 	<section layout:fragment="corpo">
 		<div class="app-title">
 			<div>
 				<h1>
-					<i class="fa fa-edit"></i>Cadastro de Cliente
+					<i class="fa fa-edit"></i>Cadastro de Usuario
 				</h1>
 			</div>
 			<ul class="app-breadcrumb breadcrumb">
 				<li class="breadcrum-item"><i class="fa fa-search fa-lg"></i></li>
 				<li class="breadcrum-item"><a
-					th:href="@{/cliente/list_cliente}">Listar Clientes</a></li>
+					th:href="@{/usuario/list_usuario}">Listar Usuarios</a></li>
 			</ul>
 		</div>
 		<div class="container-fluid">
 			<div class="tile">
 				<h3 class="tile-title">Registro</h3>
 				<div class="tite-body">
-					<form th:object=${cliente}
-						th:action="${id == null} ? @{/cliente/salvar_cliente} : @{/cliente/editar_cliente}"
-						method="POST" autocomplete="off" id="form1">
+					<form th:object=${usuario}
+						th:action="${idUsuario == null} ? @{/usuario/salvar_usuario} : @{/usuario/editar_usuario}"
+						method="POST" autocomplete="off">
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12">
 								<div th:replace="fragments/validacao :: validacao"></div>
@@ -36,12 +36,12 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12">
 								<div class="form-group">
-									<label for="nome" class="control-label">Nome: </label><input
-										class="form-control" type="text" id="nome" name="nome"
-										th:field="*{nome}"
-										th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' " />
+									<label for="username" class="control-label">Nome: </label><input
+										class="form-control" type="text" id="username" name="username"
+										th:field="*{username}"
+										th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' " />
 									<div class="invalid-feedback">
-										<span th:errors="*{nome}"></span>
+										<span th:errors="*{username}"></span>
 									</div>
 								</div>
 							</div>
@@ -49,17 +49,30 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12">
 								<div class="form-group">
-									<label for="email" class="control-label">Email: </label> <input
-										class="form-control" type="text" th:field="*{email}"
-										id="email" name="email"
-										th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'" />
+									<label for="emailUsuario" class="control-label">Email: </label> <input
+										class="form-control" type="text" th:field="*{emailUsuario}"
+										id="emailUsuario" name="emailUsuario"
+										th:classappend="${#fields.hasErrors('emailUsuario')} ? 'is-invalid'" />
 									<div class="invalid-feedback">
-										<span th:errors="*{email}"></span>
+										<span th:errors="*{emailUsuario}"></span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<input type="hidden" th:field="*{id}" />
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="password" class="control-label">Senha: </label> <input
+										class="form-control" type="password" th:field="*{password}"
+										id="password" name="password"
+										th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'" />
+									<div class="invalid-feedback">
+										<span th:errors="*{password}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" th:field="*{idUsuario}" />
 						<div class="tile-footer">
 							<button class="btn btn-primary" type="submit">
 								<b>Salvar </b><span class="fa fa-check-circle fa-3x"></span>

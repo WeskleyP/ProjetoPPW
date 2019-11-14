@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Excluir Função</title>
+</head>
+<body>
+	<section layout:fragment="corpo">
+		<div class="app-title">
+			<div>
+				<h1>
+					<i class="fa fa-edit"></i>Exclusão de função
+				</h1>
+			</div>
+			<ul class="app-breadcrumb breadcrumb">
+				<li class="breadcrum-item"><i class="fa fa-search fa-lg"></i></li>
+				<li class="breadcrum-item"><a
+					th:href="@{/role/list_role}">Pesquisar Funções</a></li>
+			</ul>
+		</div>
+		<div class="container-fluid">
+			<div class="tile">
+				<h3 class="tile-title">Excluir</h3>
+				<div class="tite-body">
+					<form th:action="@{/role/excluir_role}" th:object=${role}
+						method="POST">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group">
+									<label class="control-label">Nome: </label><input
+										class="form-control" type="text" th:field="*{nomeRole}" readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" th:field="*{idRole}" />
+						<div class="tile-footer">
+							<button class="btn btn-danger" type="submit">
+								<b>Excluir </b><span class="fa fa-check-circle fa-3x"></span>
+							</button>
+							<a class="btn btn-dark" th:href="@{/role/list_role}"><i
+								class="fa fa-trash"></i>Cancelar</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<th:block layout:fragment="javascript-extra"></th:block>
+</body>
+</html>
