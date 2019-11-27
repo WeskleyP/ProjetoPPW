@@ -61,18 +61,105 @@
 						</div>
 						<input type="hidden" th:field="*{id}" />
 						<div class="tile-footer">
-							<button class="btn btn-primary" type="submit">
+							<button class="btn btn-primary" type="submit" name="action"
+								value="salvar">
 								<b>Salvar </b><span class="fa fa-check-circle fa-3x"></span>
 							</button>
-							<button class="btn btn-dark" type="submit" name="action" value="cancelar">
+							<button class="btn btn-dark" type="submit" name="action"
+								value="cancelar">
 								<b>Cancelar </b><span class="fa fa-trash fa-3x"></span>
 							</button>
+						</div>
+						<div th:if="${cliente.id} != 0">
+							<table class="table table-striped table-bordered table-hover">
+								<tr>
+									<th style="width: 40px; font-weight: bold; text-align: center">Tipo
+										Contato</th>
+									<th style="width: 40px; font-weight: bold; text-align: center">Tipo
+										Telefone</th>
+									<th style="width: 40px; font-weight: bold; text-align: center">Número
+										Telefone</th>
+									<th style="width: 40px; font-weight: bold; text-align: center">Ação</th>
+								</tr>
+								<tr th:each="listaTelefones, rowStat : *{listaTelefones}">
+									
+									<td style="width: 40px; font-weight: bold; text-align: center">
+									<input type="hidden" th:field="*{listaTelefones[__${rowStat.index}__].id}"/>
+										<select
+										th:field="*{listaTelefones[__${rowStat.index}__].tipoContato}">
+											<option value="">Selecione</option>
+											<option th:each="tipo : ${tipoContatos}" th:value="${tipo}"
+												th:text="${tipo.descricao}"></option>
+									</select>
+									</td>
+									<td style="width: 40px; font-weight: bold; text-align: center">
+										<select
+										th:field="*{listaTelefones[__${rowStat.index}__].tipoTelefone}">
+											<option value="">Selecione</option>
+											<option th:each="tipoFone : ${tipoTelefones}"
+												th:value="${tipoFone}" th:text="${tipoFone.descricao}"></option>
+									</select>
+									</td>
+									<td style="width: 40px; font-weight: bold; text-align: center">
+										<input type="text" class="form-control js-formatTelefone"
+										th:field="*{listaTelefones[__${rowStat.index}__].numeroTelefone}" />
+									</td>
+									<td style="width: 40px; font-weight: bold; text-align: center">
+										<button class="btn btn-danger" type="submit" name="removerow"
+											value="removerow" th:value="${rowStat.index}">
+											<i class="fa fa-minus" style="color: white"></i>
+										</button>
+									</td>
+								</tr>
+							</table>
+							<div class="row">
+								<div class="form-group"
+									th:if="${#lists.size(cliente.listaTelefones)} &lt; 4">
+									<div class="col-sm-2">
+										<button class="modal-basic btn btn-primary" type="submit"
+											name="addrow" value="addrow"
+											th:disabled="${#lists.size(cliente.listaTelefones)} >= 4">
+											Novo Contato <i class="fa fa-fw fa-lg fa-check-circle"
+												style="color: white"></i>
+										</button>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2">
+										<button class="modal-basic btn btn-success" type="submit"
+											name="fone" value="fone">
+											Salvar Contato <i class="fa fa-fw fa-lg fa-check-circle"
+												style="color: white"></i>
+										</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</section>
-	<th:block layout:fragment="javascript-extra"></th:block>
+	<th:block layout:fragment="javascript-extra">
+		<script>
+			$(function(){
+				
+				var configureMascaraTelefone = function(val){
+					return val.replace(/\D/g,'').length == 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+				}
+				opcao = {
+					onkeyPress: function(val, e, field, options){
+						field.mask(configureMascaraTelefone.apply({}, arguments), options);
+					}
+				};
+				
+				$('.js-formatTelefone').mask(configureMascaraTelefone, opcao);
+				
+			});
+		
+		
+		
+		</script>
+	</th:block>
 </body>
 </html>

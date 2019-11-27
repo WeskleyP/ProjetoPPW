@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +22,25 @@ import com.crm.service.exceptions.EmailClienteExistente;
 public class UsuarioServiceImpl implements UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
 	@Override
 	public Usuario saveUsuario(Usuario usuario) {
 		Optional<Usuario> optionalUsuario = findUsuarioByEmail(usuario.getEmailUsuario());
 		if(optionalUsuario.isPresent()) {
 			throw new EmailClienteExistente("Email já cadastrado");
 		}
+		if(usuario.getPassword().equals(usuario.getContraSenha())) {
+			return null;
+		}
+		String password = passwordEncoder().encode(usuario.getPassword());
+		usuario.setPassword(password);
+		usuario.setAtivo(true);
 		return usuarioRepository.save(usuario);
 	}
 

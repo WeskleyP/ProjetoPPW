@@ -1,6 +1,7 @@
 package com.crm.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -41,12 +43,13 @@ public class Cliente implements Serializable{
 	private boolean registroDeletado = false;
 	
 	public Cliente() {
-		
+		listaTelefones = new ArrayList<>();
 	}
 	public Cliente(long id, String nome, String email) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
+		listaTelefones = new ArrayList<>();
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLIENTE_SEQUENCE")

@@ -31,7 +31,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "TAB_USUARIO")
-@SequenceGenerator(name = "USUARIO_SEQUENCE", sequenceName = "TAB_USUARIO_SEQUENCE")
+@SequenceGenerator(name = "USUARIO_SEQUENCE", sequenceName = "TAB_USUARIO_SEQUENCE",allocationSize = 1)
 public class Usuario implements UserDetails{
 	private Long idUsuario;
 	private String username;
@@ -99,10 +99,10 @@ public class Usuario implements UserDetails{
 		this.emailUsuario = emailUsuario;
 	}
 	@Override
-	@Size(min = 3, max = 20, message = "No minimo 3 caracteres e no maximo 20 caracteres!")
+	@Size(min = 3, max = 200, message = "No minimo 3 caracteres e no maximo 20 caracteres!")
 	@NotBlank(message = "A password deve ser informada!")
 	@NotNull(message = "A password deve ser informada!")
-	@Column(name = "USUARIO_SENHA", length = 50,nullable = false)
+	@Column(name = "USUARIO_SENHA", length = 200,nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -234,6 +234,13 @@ public class Usuario implements UserDetails{
 	@Transient
 	public boolean isEnabled() {
 		return ativo;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", username=" + username + ", emailUsuario=" + emailUsuario
+				+ ", password=" + password + ", contraSenha=" + contraSenha + ", lastlogin=" + lastlogin + ", ativo="
+				+ ativo + ", role=" + role + "]";
 	}
 	
 

@@ -43,4 +43,9 @@ public class TelefoneServiceImpl implements TelefoneService {
 		return telefoneRepository.getOne(id);
 	}
 
+	@Override
+	public List<Telefone> findTelefoneClienteById(Long id) {
+		return telefoneRepository.findTelefoneClienteById(id);
+	}
+
 }

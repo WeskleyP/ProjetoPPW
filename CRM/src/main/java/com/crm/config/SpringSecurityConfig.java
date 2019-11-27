@@ -23,9 +23,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		  String password = passwordEncoder().encode("123456");
-		 System.out.println(password);
-		 
+		/*
+		 * String password = passwordEncoder().encode("123456");
+		 * System.out.println(password);
+		 */		 
 		
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 		

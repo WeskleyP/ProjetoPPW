@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.model.Cliente;
+import com.crm.model.Telefone;
 import com.crm.repository.ClienteRepository;
+import com.crm.repository.TelefoneRepository;
 import com.crm.repository.filter.ClienteFilter;
 import com.crm.service.ClienteService;
 import com.crm.service.exceptions.EmailClienteExistente;
@@ -20,6 +22,8 @@ public class ClienteServiceImpl implements ClienteService {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	@Autowired
+	private TelefoneRepository telefoneRepository;
 	@Override
 	public Cliente saveCliente(Cliente cliente) {
 		Optional<Cliente> optionalCliente = findClienteByEmail(cliente.getEmail());
@@ -36,6 +40,11 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public void remove(Cliente cliente) {
+		if(cliente.getListaTelefones().size() != -1) {
+			for(Telefone telefone : cliente.getListaTelefones()) {
+				telefoneRepository.deleteById(telefone.getId());
+			}
+		}
 		clienteRepository.deleteById(cliente.getId());
 	}
 
@@ -65,5 +74,40 @@ public class ClienteServiceImpl implements ClienteService {
 	public List<Cliente> findClienteByName(String nome) {
 		return clienteRepository.findClienteByName(nome);
 	}
+
+	@Override
+	public Cliente adicionarContatoCliente(Cliente cliente) {
+		Telefone telefone = new Telefone();
+		telefone.setCliente(cliente);
+		cliente.getListaTelefones().add(telefone);
+		return cliente;
+	}
+
+	@Override
+	public Cliente removeTelefoneCliente(Cliente cliente, int index) {
+		Telefone excluirTelefone = cliente.getListaTelefones().get(index);
+		if(excluirTelefone.getId() != null) {
+			telefoneRepository.deleteById(excluirTelefone.getId());
+		}	
+		cliente.getListaTelefones().remove(index);
+		return cliente;
+	}
+
+	@Override
+	public void salvarTelefoneCliente(Cliente cliente) {
+		if(cliente.getListaTelefones().size() != -1) {
+			for(Telefone telefone : cliente.getListaTelefones()) {
+				telefone.setCliente(cliente);
+				telefoneRepository.save(telefone);
+			}
+			
+		}
+	}
+
+	@Override
+	public Cliente findClienteByIdAndTelefone(Long id) {
+		return clienteRepository.findClienteByIdAndTelefone(id);
+	}
+	
 
 }

@@ -60,7 +60,7 @@ public class Telefone {
 		this.numeroTelefone = numeroTelefone;
 	}
 
-	@ManyToOne(targetEntity = Cliente.class,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Cliente.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "CLIENTE_ID", nullable = false, referencedColumnName = "CLIENTE_ID",foreignKey = @ForeignKey(name = "FK_TELEFONE_CLIENTE"))
 	public Cliente getCliente() {
 		return cliente;

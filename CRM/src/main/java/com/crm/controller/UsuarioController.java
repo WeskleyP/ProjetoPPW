@@ -1,5 +1,6 @@
 package com.crm.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,8 +21,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.crm.config.CrmConfig;
 import com.crm.controller.page.PageWrapper;
+import com.crm.model.Categoria;
+import com.crm.model.Role;
 import com.crm.model.Usuario;
 import com.crm.repository.filter.UsuarioFilter;
+import com.crm.service.RoleService;
 import com.crm.service.UsuarioService;
 import com.crm.service.exceptions.EmailClienteExistente;
 
@@ -29,7 +34,8 @@ import com.crm.service.exceptions.EmailClienteExistente;
 public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
-
+	@Autowired
+	private RoleService roleService;
 	@RequestMapping(value = "/list_usuario", method = RequestMethod.GET)
 	public ModelAndView listUsuario(UsuarioFilter usuarioFilter, HttpServletRequest httpServletRequest,
 			@RequestParam(value = "size", required = false) Optional<Integer> size,
@@ -120,5 +126,8 @@ public class UsuarioController {
 	public String cancelar() {
 		return "redirect:/usuario/list_usuario";
 	}
-
+	@ModelAttribute("roles")
+	public List<Role> getrole() {
+		return roleService.findAll();
+	}
 }

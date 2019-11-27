@@ -3,6 +3,8 @@ package com.crm.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,4 +20,8 @@ public interface ClienteService {
 	List<Cliente> findClienteByName(String nome);
 	Page<Cliente> listaClienteComPaginacao(ClienteFilter clienteFilter,Pageable pageable);
 	Optional<Cliente> findClienteByEmail(String email);
+	Cliente adicionarContatoCliente(Cliente cliente);
+	Cliente removeTelefoneCliente(Cliente cliente, int index);
+	void salvarTelefoneCliente(Cliente cliente);
+	Cliente findClienteByIdAndTelefone(Long id);
 }

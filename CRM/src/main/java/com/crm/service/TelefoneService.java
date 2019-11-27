@@ -10,4 +10,5 @@ public interface TelefoneService {
 	void remove(Telefone telefone);
 	List<Telefone> findAll();
 	Telefone findTelefoneById(Long id);
+	List<Telefone> findTelefoneClienteById(Long id);
 }
