@@ -31,8 +31,11 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	@Override
-	public void remove(Produto produto) {
+	public void remove(Produto produto) throws Exception {
 		Produto produtoEncontrado = findProdutoById(produto.getId());
+		if(produtoEncontrado.getQuantidade() > 0) {
+			throw new Exception();
+		}
 		produtoRepository.delete(produtoEncontrado);
 
 	}

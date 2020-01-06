@@ -113,10 +113,16 @@ public class CategoriaController {
 	}
 
 	@RequestMapping(value = "/excluir_categoria", method = RequestMethod.POST)
-	public ModelAndView removeCliente(Categoria categoria, RedirectAttributes attr) {
-		categoriaService.remove(categoria);
-		attr.addFlashAttribute("success", "Registro Excluido com sucesso.");
+	public ModelAndView removeCliente(Categoria categoria, RedirectAttributes attr) throws Exception {
+		try {
+			categoriaService.remove(categoria);
+			attr.addFlashAttribute("success", "Registro Excluido com sucesso.");
+		} catch (Exception e) {
+			attr.addFlashAttribute("fail","Categoria relacionada a pelo menos 1 produto");
+			e.printStackTrace();
+		}
 		return new ModelAndView("redirect:/categoria/nova_categoria");
+		
 	}
 	@RequestMapping(value= {"/salvar_categoria","/editar_categoria","/excluir_categoria"}, method=RequestMethod.POST, params="action=cancelar")
 	public String cancelar() {

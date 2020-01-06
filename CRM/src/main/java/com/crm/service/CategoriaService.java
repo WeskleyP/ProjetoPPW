@@ -14,7 +14,7 @@ import com.crm.repository.filter.ClienteFilter;
 public interface CategoriaService {
 	Categoria saveCategoria(Categoria categoria);
 	Categoria update(Categoria categoria);
-	void remove(Categoria categoria);
+	void remove(Categoria categoria) throws Exception;
 	List<Categoria> findAll();
 	Categoria findCategoriaById(Long id);
 	List<Cliente> findCategoriaByName(String nome);

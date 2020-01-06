@@ -21,6 +21,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 	private CategoriaRepository categoriaRepository;
 	@Override
 	public Categoria saveCategoria(Categoria categoria) {
+		System.out.println(categoria.toString());
 		return categoriaRepository.save(categoria);
 	}
 
@@ -30,8 +31,11 @@ public class CategoriaServiceImpl implements CategoriaService {
 	}
 
 	@Override
-	public void remove(Categoria categoria) {
+	public void remove(Categoria categoria) throws Exception {
 		Categoria categoriaEncontrada = findCategoriaById(categoria.getId());
+		if(categoriaEncontrada.getListaProdutos().size() > 0) {
+			throw new Exception();
+		}
 		categoriaRepository.delete(categoriaEncontrada);
 	}
 

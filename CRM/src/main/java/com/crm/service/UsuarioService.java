@@ -10,7 +10,7 @@ import com.crm.model.Usuario;
 import com.crm.repository.filter.UsuarioFilter;
 
 public interface UsuarioService {
-	Usuario saveUsuario(Usuario usuario);
+	Usuario saveUsuario(Usuario usuario) throws Exception;
 	Usuario update(Usuario usuario);
 	void remove(Usuario usuario);
 	List<Usuario> findAll();

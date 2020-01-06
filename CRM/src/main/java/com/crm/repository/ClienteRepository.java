@@ -15,7 +15,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>,ClienteQ
 	@Query(value = "SELECT p FROM Cliente p WHERE p.nome LIKE %:nome%")
 	List<Cliente> findClienteByName(@Param("nome") String nome);
 	
-	@Query("SELECT p FROM Cliente p JOIN Telefone t ON p.id = t.cliente.id WHERE p.id =:id")
+	@Query("SELECT p FROM Cliente p LEFT JOIN Telefone t ON p.id = t.cliente.id WHERE p.id =:id")
 	Cliente findClienteByIdAndTelefone(@Param("id") Long id);
 	
 }

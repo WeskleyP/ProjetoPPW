@@ -23,57 +23,6 @@
 		</div>
 		<div class="container-fluid">
 			<div class="bs-component">
-				<div class="tile">
-					<i class="fa fa-search-plus"></i><span></span>
-					<button class="btn btn-primary" type="button"
-						data-toggle="collapse" data-target="#collapseNome"
-						data-tooltip="tooltip" data-placement="top"
-						title="Pesquisar pelo nome do Cliente">Nome</button>
-					<button class="btn btn-secondary" type="button"
-						data-toggle="collapse" data-target="#collapseCpf"
-						data-tooltip="tooltip" data-placement="top"
-						title="Pesquisar pelo CPF do Cliente">CPF</button>
-				</div>
-				<div id="collapseNome" class="collapse">
-					<div class="tile">
-						<form class="form-inline" method="GET"
-							th:object="${clienteFilter}">
-							<div class="col-sm-12">
-								<div class="form-group">
-									<label for="nome" class="control-label col-sm-1">Nome:</label>
-									<input type="text" class="form-control col-sm-8" name="nome"
-										id="nome" th:field="*{nome}"
-										placeholder="Digite o nome do cliente para pesquisar" />
-									<div class="col-md-1">
-										<button type="submit" class="btn btn-primary">
-											Pesquisar<i class="fa fa-search-plus"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-				<div id="collapseCpf" class="collapse">
-					<div class="tile">
-						<form class="form-inline" method="GET"
-							th:object="${clienteFilter}">
-							<div class="col-sm-12">
-								<div class="form-group">
-									<label for="nome" class="control-label col-sm-1">CPF:</label> <input
-										type="text" class="form-control col-sm-8" name="cpf" id="cpf"
-										th:field="*{cpf}"
-										placeholder="Digite o cpf do cliente para pesquisar" />
-									<div class="col-md-1">
-										<button type="submit" class="btn btn-primary">
-											Pesquisar<i class="fa fa-search-plus"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
 				<div id="no-more-tables">
 					<div class="form-group row">
 						<label for="pageSizeSelect" class="col-sm-2 col-form-label"><b>Quantidade
@@ -93,8 +42,11 @@
 									<thead class="cf">
 										<tr>
 											<th class="p-3 mb-2 bg-primary text-white">Id</th>
-											<th class="p-3 mb-2 bg-primary text-white">Nome</th>
-											<th class="p-3 mb-2 bg-primary text-white">Email</th>
+											<th class="p-3 mb-2 bg-primary text-white">Data</th>
+											<th class="p-3 mb-2 bg-primary text-white">Nome do Pai</th>
+											<th class="p-3 mb-2 bg-primary text-white">Nome da Mãe</th>
+											<th class="p-3 mb-2 bg-primary text-white">Sexo</th>
+											<th class="p-3 mb-2 bg-primary text-white">CPF</th>
 											<th class="p-3 mb-2 bg-primary text-white">Ações</th>
 										</tr>
 									</thead>

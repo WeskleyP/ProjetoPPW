@@ -63,7 +63,7 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value = "/salvar_usuario", method = RequestMethod.POST)
-	public ModelAndView saveNewUsuario(@Valid Usuario usuario, BindingResult result, RedirectAttributes attr) {
+	public ModelAndView saveNewUsuario(@Valid Usuario usuario, BindingResult result, RedirectAttributes attr) throws Exception {
 		if (result.hasErrors()) {
 			return newForm(usuario);
 		}

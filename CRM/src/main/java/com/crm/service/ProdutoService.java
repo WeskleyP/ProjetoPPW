@@ -11,7 +11,7 @@ import com.crm.repository.filter.ProdutoFilter;
 public interface ProdutoService {
 	Produto saveProduto(Produto produto);
 	Produto update(Produto produto);
-	void remove(Produto produto);
+	void remove(Produto produto) throws Exception;
 	List<Produto> findAll();
 	Produto findProdutoById(Long id);
 	List<Produto> findProdutoByDesc(String desc);

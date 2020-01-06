@@ -49,8 +49,8 @@ public class ClientePessoaFisicaServiceImpl implements ClientePessoaFisicaServic
 
 	@Override
 	public Page<ClientePessoaFisica> listaClientePessoaFisicaComPaginacao(
-			ClientePessoaFisicaFilter clientePessoaFisicaFilter, Pageable pageable) {
-		return null;
+		ClientePessoaFisicaFilter clientePessoaFisicaFilter, Pageable pageable) {
+		return clientePessoaFisicaRepository.listaCategoriaComPaginacao(clientePessoaFisicaFilter, pageable);
 	}
 	
 

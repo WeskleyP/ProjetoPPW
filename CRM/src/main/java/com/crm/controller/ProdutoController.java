@@ -119,8 +119,13 @@ public class ProdutoController {
 
 	@RequestMapping(value = "/excluir_produto", method = RequestMethod.POST)
 	public ModelAndView removeProduto(Produto produto, RedirectAttributes attr) {
-		produtoService.remove(produto);
-		attr.addFlashAttribute("success", "Registro Excluido com sucesso.");
+		try {
+			produtoService.remove(produto);
+			attr.addFlashAttribute("success", "Registro Excluido com sucesso.");
+		} catch (Exception e) {
+			attr.addFlashAttribute("fail","Quantidade de produtos maior que 0");
+			e.printStackTrace();
+		}
 		return new ModelAndView("redirect:/produto/novo_produto");
 	}
 	@RequestMapping(value= {"/salvar_produto","/editar_produto","/excluir_produto"}, method=RequestMethod.POST, params="action=cancelar")

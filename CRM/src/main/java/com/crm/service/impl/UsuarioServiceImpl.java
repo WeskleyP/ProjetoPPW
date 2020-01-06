@@ -30,17 +30,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 	
 	@Override
-	public Usuario saveUsuario(Usuario usuario) {
+	public Usuario saveUsuario(Usuario usuario) throws Exception {
 		Optional<Usuario> optionalUsuario = findUsuarioByEmail(usuario.getEmailUsuario());
 		if(optionalUsuario.isPresent()) {
 			throw new EmailClienteExistente("Email já cadastrado");
 		}
-		if(usuario.getPassword().equals(usuario.getContraSenha())) {
-			return null;
+		if(!(usuario.getPassword().equals(usuario.getContraSenha()))) {
+			throw new Exception();
 		}
 		String password = passwordEncoder().encode(usuario.getPassword());
 		usuario.setPassword(password);
-		usuario.setAtivo(true);
 		return usuarioRepository.save(usuario);
 	}
 
