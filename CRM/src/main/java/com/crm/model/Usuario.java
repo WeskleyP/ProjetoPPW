@@ -24,6 +24,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -56,7 +58,11 @@ public class Usuario implements UserDetails{
 
 	public Usuario() {
 	}
-
+	public Usuario(Long idUsuario, String username, String emailUsuario) {
+		this.idUsuario = idUsuario;
+		this.username = username;
+		this.emailUsuario = emailUsuario;
+	}
 	public Usuario(Long idUsuario, String username, String emailUsuario, String password, String contraSenha) {
 		this.idUsuario = idUsuario;
 		this.username = username;
@@ -100,8 +106,8 @@ public class Usuario implements UserDetails{
 	}
 	@Override
 	@Size(min = 3, max = 200, message = "No minimo 3 caracteres e no maximo 20 caracteres!")
-	@NotBlank(message = "A password deve ser informada!")
-	@NotNull(message = "A password deve ser informada!")
+	//@NotBlank(message = "A password deve ser informada!")
+	//@NotNull(message = "A password deve ser informada!")
 	@Column(name = "USUARIO_SENHA", length = 200,nullable = false)
 	public String getPassword() {
 		return password;
@@ -200,7 +206,7 @@ public class Usuario implements UserDetails{
 			return false;
 		return true;
 	}
-
+	@JsonIgnore
 	@Override
 	@Transient
 	public Collection<? extends GrantedAuthority> getAuthorities() {

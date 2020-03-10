@@ -15,18 +15,21 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.web.bind.annotation.CookieValue;
 
 @Entity
 @Table(name = "TAB_ROLE")
 @SequenceGenerator(name = "ROLE_SEQUENCE", sequenceName = "TAB_ROLE_SEQUENCE", allocationSize = 1, initialValue = 1)
-public class Role {
+public class Role{
 	
 	private Long idRole;
 	private String nomeRole;
 
 	List<Usuario> usuarios;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "role")
 	public List<Usuario> getUsuarios() {
 		return usuarios;

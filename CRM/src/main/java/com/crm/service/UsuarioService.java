@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.crm.model.Usuario;
+import com.crm.model.dto.UserDTO;
 import com.crm.repository.filter.UsuarioFilter;
 
 public interface UsuarioService {
@@ -18,4 +19,5 @@ public interface UsuarioService {
 	List<Usuario> findUsuarioByName(String nome);
 	Page<Usuario> listaUsuarioComPaginacao(UsuarioFilter usuarioFilter,Pageable pageable);
 	Optional<Usuario> findUsuarioByEmail(String email);
+	Usuario fromDto(UserDTO dto);
 }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.model.Cliente;
 import com.crm.model.Usuario;
+import com.crm.model.dto.UserDTO;
 import com.crm.repository.UsuarioRepository;
 import com.crm.repository.filter.UsuarioFilter;
 import com.crm.service.UsuarioService;
@@ -78,6 +79,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Optional<Usuario> findUsuarioByEmail(String email) {
 		return usuarioRepository.findUsuarioByEmail(email);
+	}
+	
+	@Override
+	public Usuario fromDto(UserDTO objDto) {
+		return new Usuario(objDto.getIdUsuario(),objDto.getUsername(),objDto.getEmailUsuario());
 	}
 
 }
