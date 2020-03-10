@@ -1,6 +1,6 @@
 # ProjetoPPW
 
-## Projeto feito na aula de Programação para web
+## Projeto feito na aula de Programação para Web
 
 O projeto tem como objetivo por em prática conhecimentos sobre o framework Spring para Java
 
