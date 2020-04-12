@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 	
 	@Override
+	//@Secured("hasRole('ROLE_ADMINISTRADOR')")
+	//@PreAuthorize("hasPermission('CADASTRO_USUARIO','WRITE')")
 	public Usuario saveUsuario(Usuario usuario) throws Exception {
 		Optional<Usuario> optionalUsuario = findUsuarioByEmail(usuario.getEmailUsuario());
 		if(optionalUsuario.isPresent()) {

@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.crm.model.Role;
 import com.crm.rest.exception.Problem;
 import com.crm.rest.exception.ProblemType;
@@ -50,7 +52,7 @@ public class RoleRestController {
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Role saveNewRole(@RequestBody Role role){
+    public Role saveNewRole(@RequestBody @Valid Role role){
         return roleService.saveRole(role);
     }
     @PutMapping(value = "/atualizar/{id}")

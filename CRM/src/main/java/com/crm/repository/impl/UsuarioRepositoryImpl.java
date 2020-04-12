@@ -12,13 +12,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.crm.model.Usuario_;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import com.crm.model.Usuario;
-import com.crm.model.Usuario_;
 import com.crm.repository.filter.UsuarioFilter;
 import com.crm.repository.query.UsuarioQuery;
 

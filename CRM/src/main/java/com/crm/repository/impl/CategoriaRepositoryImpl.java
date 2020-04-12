@@ -11,19 +11,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.crm.model.Categoria_;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.util.StringUtils;
 
 import com.crm.model.Categoria;
-import com.crm.model.Categoria_;
-import com.crm.model.Cliente;
-import com.crm.model.Cliente_;
 import com.crm.repository.filter.CategoriaFilter;
-import com.crm.repository.filter.ClienteFilter;
 import com.crm.repository.query.CategoriaQuery;
 
 public class CategoriaRepositoryImpl implements CategoriaQuery{

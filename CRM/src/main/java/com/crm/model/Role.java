@@ -19,11 +19,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.web.bind.annotation.CookieValue;
 
+import lombok.EqualsAndHashCode;
+
 @Entity
 @Table(name = "TAB_ROLE")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SequenceGenerator(name = "ROLE_SEQUENCE", sequenceName = "TAB_ROLE_SEQUENCE", allocationSize = 1, initialValue = 1)
 public class Role{
-	
+	@EqualsAndHashCode.Include
 	private Long idRole;
 	private String nomeRole;
 

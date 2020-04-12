@@ -1,6 +1,7 @@
 package com.crm.rest.exception;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -14,6 +15,7 @@ public class Problem {
     private String title; //Descrição do tipo do problema mais legível possível
     private String detail; //Descrição sobre a ocorrência do erro
     private String userMessage; //Mensagem genérica para o usuário
+    private List<Fields> fields;
 
     public Integer getStatus() {
         return this.status;
@@ -62,6 +64,15 @@ public class Problem {
     public void setUserMessage(String userMessage) {
         this.userMessage = userMessage;
     }
+
+    public List<Fields> getFields() {
+        return this.fields;
+    }
+
+    public void setFields(List<Fields> fields) {
+        this.fields = fields;
+    }
+
     public static Builder builder(){
         return new Builder();
     }
@@ -96,6 +107,10 @@ public class Problem {
         }
         public Builder addUserMessage(String userMessage){
             this.problem.userMessage = userMessage;
+            return this; 
+        }
+        public Builder addListFields(List<Fields> fields){
+            this.problem.fields = fields;
             return this; 
         }
         public Problem build() {
