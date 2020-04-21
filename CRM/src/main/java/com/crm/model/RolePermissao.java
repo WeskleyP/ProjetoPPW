@@ -21,7 +21,7 @@ public class RolePermissao implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PERMISSAO_ID", insertable = false, updatable = false)
     private Permissao permissaoId;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ESCOPO_ID",insertable=false, updatable=false)
     private Escopo escopoId; // CREATE, READ, UPDATE, DELETE
 }

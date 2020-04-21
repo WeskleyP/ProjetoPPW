@@ -17,4 +17,7 @@ public class RolePermissaoId implements Serializable {
     @EqualsAndHashCode.Include
     @Column(name = "PERMISSAO_ID", insertable = false, updatable = false, nullable = false)
     private Long permissaoId;
+    @EqualsAndHashCode.Include
+    @Column(name = "ESCOPO_ID", insertable = false, updatable = false, nullable = false)
+    private Long escopoId;
 }
