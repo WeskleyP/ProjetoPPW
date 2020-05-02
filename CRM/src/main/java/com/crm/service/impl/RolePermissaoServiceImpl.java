@@ -3,6 +3,7 @@ package com.crm.service.impl;
 import com.crm.model.RolePermissao;
 import com.crm.model.RolePermissaoId;
 import com.crm.repository.RolePermissaoRepository;
+import com.crm.repository.filter.RolePermissaoFiltro;
 import com.crm.service.RolePermissaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,10 @@ public class RolePermissaoServiceImpl implements RolePermissaoService {
     @Override
     public void deleteById(RolePermissaoId id) {
         rolePermissaoRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RolePermissao> findRolePermissaoEscopoFiltro(RolePermissaoFiltro rolePermissaoFiltro) {
+        return rolePermissaoRepository.findRolePermissaoEscopoFiltro(rolePermissaoFiltro);
     }
 }
